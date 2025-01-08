@@ -4,18 +4,19 @@ import colors from 'colors'
 import { log } from 'console';
 import connectDB from '../config/db.config';
 
-// const connect = async (): Promise<void> => {
+const connect = async (): Promise<void> => {
  
-//     // connecty
-//  database
-//     await connectDB();
+    // connect database
+    await connectDB();
   
   
 //     // seed data
 //     await seedData();
-//   }
+//  
+
+}
   
-// connect();
+connect();
 
 const PORT = process.env.PORT;
 

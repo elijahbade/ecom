@@ -101,10 +101,10 @@ app.get('/', (req: Request, res: Response, next: NextFunction) =>{
         error: false,
         errors: [],
         data: { 
-            name: 'URL Shortner API - DEFAULT',
+            name: 'ecomProject API - DEFAULT',
             env: environment
         },
-        message: 'url-shortner api v1.0.0',
+        message: 'ecom-project api v1.0.0',
         status: 200
     })
 })
