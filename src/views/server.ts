@@ -3,6 +3,7 @@ import app from '../config/app.config'
 import colors from 'colors'
 import { log } from 'console';
 import connectDB from '../config/db.config';
+import seedData from '../config/seeds/seeder.seeds';
 
 const connect = async (): Promise<void> => {
  
@@ -10,9 +11,9 @@ const connect = async (): Promise<void> => {
     await connectDB();
   
   
-//     // seed data
-//     await seedData();
-//  
+    // seed data
+    await seedData();
+ 
 
 }
   
