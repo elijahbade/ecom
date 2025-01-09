@@ -1,6 +1,13 @@
 import { RegisterDTO } from "../dtos/auth.dtos";
-import { IResult } from "../utils/interface.utils";
+import { IResult, IUserDoc } from "../utils/interface.utils";
 import UserService from "./user.service";
+import { LoginDTO } from "../dtos/auth.dtos";
+import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
+import User from "../models/User.model";
+
+
+
 
 class AuthService {
 
@@ -40,8 +47,9 @@ class AuthService {
                 result.code = 200;
             }
             return result
-    }
+    } 
+
+
 
 }
-
 export default new AuthService()

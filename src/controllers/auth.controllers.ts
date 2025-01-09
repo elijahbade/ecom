@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import asyncHandler from "../middleware/aysnc.mw";
-import logger from '../utils/logger.utils';
-import { RegisterDTO } from '../dtos/auth.dtos';
+import { LoginDTO, RegisterDTO } from '../dtos/auth.dtos';
 import Role from '../models/Role.models';
 import { AppChannel, UserType } from '../utils/enums.utils';
 import ErrorResponse from '../utils/error.utils';
@@ -52,3 +51,4 @@ export const register = asyncHandler(async (req: Request, res: Response, next: N
         status: 200
     })
 })
+

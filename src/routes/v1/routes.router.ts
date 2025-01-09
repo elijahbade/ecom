@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express'
 
 //import all routes
 import authRoutes from './routers/auth.router'
-import { register } from '../../controllers/auth.controllers';
 
 //create router
 const router = express.Router();
@@ -15,9 +14,9 @@ res.status(200).json({
         error: false,
         errors: [],
          data: { 
-             name: 'URL Shortner API - V1 Default',
+             name: 'eCom Project - V1 Default',
          },
-         message: 'url-shortner api v1.0.0',
+         message: 'ecom-project api v1.0.0',
          status: 200
      })
  })

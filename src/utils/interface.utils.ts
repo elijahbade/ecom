@@ -49,15 +49,9 @@ export interface IUserDoc extends Document {
 export interface IResult{
     error: boolean,
     message: string,
-    code?: number,
+    code?:  any,
     data: any
 }
 
 
 
-export interface Isaac {
-    error: boolean, 
-    message: string, 
-    code?: number, 
-    data: any
-}

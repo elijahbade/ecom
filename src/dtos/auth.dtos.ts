@@ -17,3 +17,8 @@ export interface MappedRegisteredUserDTO{
   updatedAt: string
 }
 
+export interface LoginDTO {
+  email: string;
+  password: string;
+}
+
