@@ -52,15 +52,23 @@ const UserSchema = new Schema(
           type: String,
           default: '+234'
       },
-
+      
+      isVerified: { type: Boolean, default: false },
+      verificationToken: { type: String },
+      resetPasswordToken: { type: String },
+      resetPasswordExpires: { type: Date },
+      
       roles: [
           {
               type: Schema.Types.Mixed,
               ref: 'Role'
-          }
+          },
+
+          
       ]
 
   },
+
   {
       timestamps: true,
       versionKey: '_version',

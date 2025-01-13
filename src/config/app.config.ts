@@ -15,7 +15,7 @@ import cors from 'cors'
 import userAgent from 'express-useragent'
 import v1Routes from '../routes/v1/routes.router'
 import { limitRequests } from "../middleware/ratelimit";
-
+import 'reflect-metadata'; 
 
 //load my env vars
 config();

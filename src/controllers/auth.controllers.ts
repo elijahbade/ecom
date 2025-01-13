@@ -17,7 +17,7 @@ import AuthMapper from '../mappers/auth.mappers';
  * @access everyone
  */
 
-export const register = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+export const register = asyncHandler ( async (req: Request, res: Response, next: NextFunction) => {
     
     const { email, password } = req.body as RegisterDTO;
 

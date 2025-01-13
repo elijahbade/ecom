@@ -37,6 +37,10 @@ export interface IUserDoc extends Document {
     updateAt: string,
     _id: ObjectId,
     id: ObjectId,
+    
+    verificationToken?: string;
+    resetPasswordToken?: string;
+    resetPasswordExpires?: Date;
 
     getUsers(): Array<IUserDoc>
     findById(id: any): IRoleDoc | null,
