@@ -25,6 +25,19 @@ const ProductSchema: Schema = new Schema<IProduct>(
   }
 );
 
+ProductSchema.index({
+    name: 'text',
+    description: 'text',
+    category: 'text'
+}, {
+    weights: {
+        name: 10,       
+        category: 5,   
+        description: 3  
+    },
+    name: "ProductSearchIndex"
+});
+
 // Create and export the product model
 const ProductModel = mongoose.model<IProduct>("Product", ProductSchema);
 export default ProductModel;

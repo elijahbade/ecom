@@ -4,6 +4,7 @@ import asyncHandler from "../../middleware/aysnc.mw";
 
 
 
+
 const getProductsByCategory = asyncHandler(async (req: Request, res: Response) => {
     // Extract category from query parameters for GET request
     const { category } = req.query;
