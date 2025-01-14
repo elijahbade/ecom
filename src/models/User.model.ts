@@ -54,8 +54,8 @@ const UserSchema = new Schema(
       },
       
       isVerified: { type: Boolean, default: false },
-      verificationToken: { type: String },
-      resetPasswordToken: { type: String },
+      verification: { type: String },
+      resetPassword: { type: String },
       resetPasswordExpires: { type: Date },
       
       roles: [
