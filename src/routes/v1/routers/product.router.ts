@@ -24,7 +24,4 @@ router.get("/filter-product", filterByCategories)
 
 
 
-
-
-
 export default router;

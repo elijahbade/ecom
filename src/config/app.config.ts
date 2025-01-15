@@ -16,11 +16,14 @@ import userAgent from 'express-useragent'
 import v1Routes from '../routes/v1/routes.router'
 import { limitRequests } from "../middleware/ratelimit";
 import 'reflect-metadata'; 
+import dotenv from 'dotenv';
 
-//load my env vars
-config();
+
+
+
 
 const app = express(); 
+dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 
 //body parser

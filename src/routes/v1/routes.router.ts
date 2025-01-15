@@ -1,10 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express'
-
-
-//import all routes
 import authRoutes from './routers/auth.router'
 import productRoutes from './routers/product.router'
 import cartRoutes from './routers/cart.router'
+import orderRoutes from './routers/order.router'
+import checkoutRoutes from './routers/checkout.router'
 
 //create router
 const router = express.Router();
@@ -12,6 +11,8 @@ const router = express.Router();
 router.use('/auth', authRoutes)
 router.use('/product', productRoutes)
 router.use('/cart', cartRoutes)
+router.use('/order', orderRoutes)
+router.use('/checkout', checkoutRoutes)
 
 router.get('/', (req: Request, res: Response, next: NextFunction) =>{
 

@@ -48,7 +48,7 @@ class CartService {
       items: [
         {
           productId: item.productId,
-          quantity: Number(item.quantity) || 1, // Convert to number and default to 1
+          quantity: Number(item.quantity) || 1, 
           name: product.name,
           price: product.price,
         },
