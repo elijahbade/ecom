@@ -115,6 +115,5 @@ app.get('/', (req: Request, res: Response, next: NextFunction) =>{
 //application version-one routes
 app.use('/v1', v1Routes)
 
-app.use(errorHandler)
 
 export default app; 

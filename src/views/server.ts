@@ -43,6 +43,7 @@ const server= app.listen(PORT, () =>{
     console.log(colors.yellow.bold(`Server Running In ${process.env.NODE_ENV} mode`))
 })
 
+  
 //catch unhandled promise rejections
 process.on('unhandledRejection', (err: any, promise) => {
 console.log(colors.red(`err:: ${err.message}`));

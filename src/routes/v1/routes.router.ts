@@ -4,6 +4,7 @@ import productRoutes from './routers/product.router'
 import cartRoutes from './routers/cart.router'
 import orderRoutes from './routers/order.router'
 import checkoutRoutes from './routers/checkout.router'
+import webhookRoute from './routers/webhooks.router'
 
 //create router
 const router = express.Router();
@@ -13,6 +14,7 @@ router.use('/product', productRoutes)
 router.use('/cart', cartRoutes)
 router.use('/order', orderRoutes)
 router.use('/checkout', checkoutRoutes)
+router.use('/', webhookRoute);
 
 router.get('/', (req: Request, res: Response, next: NextFunction) =>{
 

@@ -60,6 +60,18 @@ class OrderService {
     return Order.findById(orderId);
   }
 
+  async updateOrderPaymentStatus(
+    reference: string, 
+    status: IOrder['paymentStatus']
+  ): Promise<IOrder | null> {
+    return Order.findOneAndUpdate(
+      { paymentReference: reference },
+      { paymentStatus: status },
+      { new: true }
+    );
+  }
+
+  
   async updateOrderStatus(
     orderId: string, 
     status: IOrder['orderStatus']
@@ -70,6 +82,8 @@ class OrderService {
       { new: true }
     );
   }
+
+
 }
 
 export const orderService = new OrderService();
