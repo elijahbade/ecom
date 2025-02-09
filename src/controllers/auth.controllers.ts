@@ -19,8 +19,11 @@ import AuthMapper from '../mappers/auth.mappers';
 
 export const register = asyncHandler ( async (req: Request, res: Response, next: NextFunction) => {
     
-    const { email, password } = req.body as RegisterDTO;
-
+    const { email, password, username, firstName, avatar } = req.body as RegisterDTO;
+    console.log('Full Request Body:', req.body);
+    console.log('Destructured Avatar:', avatar);
+    console.log('Entire Payload:', JSON.stringify(req.body, null, 2));
+    
     const validate = await AuthService.validateRegister(req.body)
    
     if (validate.error) {
@@ -35,8 +38,12 @@ export const register = asyncHandler ( async (req: Request, res: Response, next:
     }
     //create the user
     const user = await UserService.createUser({
+        avatar: avatar,
         email: email,
         password: password,
+        username: username,
+        firstName: firstName,
+        
         userType: UserType.BUSINESS
     });
 

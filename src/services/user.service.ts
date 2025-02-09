@@ -38,7 +38,7 @@ class UserService {
      * @returns users
      */
     public async createUser(data: CreateUserDTO): Promise<IUserDoc>{
-        const { email, password, firstName, lastName, phoneCode, phoneNumber, username, userType } = data;
+        const { email, password, firstName, lastName, phoneCode, phoneNumber, username, userType, avatar } = data;
 
         //create user in the database
         const user = await User.create({
@@ -48,7 +48,8 @@ class UserService {
             lastName: lastName ? lastName : "",
             username: username ? username : "",
             phoneCode: phoneCode ? phoneCode : "+234",
-            phoneNumber: phoneNumber ? phoneNumber : ""
+            phoneNumber: phoneNumber ? phoneNumber : "",
+            avatar: avatar? avatar: ""
         });
 
         // attach role

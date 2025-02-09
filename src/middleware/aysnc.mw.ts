@@ -1,5 +1,3 @@
-
-
 import { Request, Response, NextFunction } from 'express';
 
 /** Normal promise will require that we use the async-await that
@@ -14,3 +12,5 @@ const asyncHandler = (fn:any) => (
         Promise.resolve(fn(req, res, next).catchnext)
 
 export default asyncHandler;
+
+

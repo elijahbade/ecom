@@ -66,7 +66,7 @@ app.use(hpp());
 //enable CORS
 //communicate with multiple domains
 
-app.use(cors({ origin: true, credentials: true }))
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
 
 app.use((req:Request, res: Response, next: NextFunction) => {
 
@@ -113,7 +113,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) =>{
 })
 
 //application version-one routes
-app.use('/v1', v1Routes)
+app.use('/api/v1', v1Routes)
 
 
 export default app; 

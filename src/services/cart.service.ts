@@ -58,6 +58,15 @@ class CartService {
   }
   
 
+  async getCartProductCount(userId: string): Promise<number> {
+    const cart = await Cart.findOne({ userId });
+    return cart ? cart.items.reduce((count, item) => count + item.quantity, 0) : 0;
+  }
+
+
+
+
+
   async updateCartItem(userId: string, item: UpdateCartDTO): Promise<ICart | null> {
     return Cart.findOneAndUpdate(
       { userId, "items.productId": item.productId },
@@ -65,6 +74,37 @@ class CartService {
       { new: true }
     );
   }
+
+
+  async updateAddToCartProduct(userId: string, item: UpdateCartDTO): Promise<ICart | null> {
+    try {
+        console.log('Update Cart Request:', {
+            userId,
+            productId: item.productId,
+            quantity: item.quantity
+        });
+
+        const updateProduct = await Cart.findOneAndUpdate(
+            { 
+                userId,
+                "items.productId": item.productId 
+            },
+            {
+                $set: { 
+                    "items.$.quantity": item.quantity 
+                }
+            },
+            { new: true }
+        );
+
+        console.log('Update result:', updateProduct);
+        return updateProduct;
+
+    } catch (err) {
+        console.error('Update cart error:', err);
+        throw err;
+    }
+}
 
   async removeCartItem(userId: string, productId: string): Promise<ICart | null> {
     return Cart.findOneAndUpdate(

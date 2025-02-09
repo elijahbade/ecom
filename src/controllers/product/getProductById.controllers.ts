@@ -3,6 +3,8 @@ import ProductModel, { IProduct } from "../../models/product/product.model";
 import asyncHandler from "../../middleware/aysnc.mw";
 
 
+
+
 export const getProductById = asyncHandler(async (req: Request, res: Response): Promise<Response> => {
     // Get productId from URL parameters instead of body
     const { productId } = req.params;

@@ -33,9 +33,9 @@ const OrderSchema = new Schema({
     fullName: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
-    state: { type: String, required: true },
-    country: { type: String, required: true },
-    postalCode: { type: String, required: true },
+    state: { type: String, required: false },
+    country: { type: String, required: false },
+    postalCode: { type: String, required: false },
     phone: { type: String, required: true }
   },
   totalAmount: { type: Number, required: true },

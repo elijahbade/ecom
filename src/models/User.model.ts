@@ -9,12 +9,14 @@ const UserSchema = new Schema(
   {
       avatar: {
           type: String,
-          default: ''
+          required: false,
+          default: ""
+          
       },
 
       username: {
           type: String,
-          maxLength: [12, 'username cannot be more than 8 characters'],
+          maxLength: [8, 'username cannot be more than 8 characters'],
       },
 
       email: {
@@ -47,6 +49,7 @@ const UserSchema = new Schema(
           type: String,
           default: ''
       },
+      userType: {type: String, default: 'user'},
 
       phoneCode: {
           type: String,
@@ -58,16 +61,17 @@ const UserSchema = new Schema(
       resetPassword: { type: String },
       resetPasswordExpires: { type: Date },
       
+    
       roles: [
           {
               type: Schema.Types.Mixed,
               ref: 'Role'
           },
-
-          
+                    
       ]
 
   },
+
 
   {
       timestamps: true,
@@ -115,7 +119,11 @@ UserSchema.methods.getAuthToken = async function () {
           { 
               id: this._id, 
               email: this.email, 
-              roles: this.roles 
+            //   roles: this.roles 
+            userType: this.userType
+
+
+            
           }, 
           secret,
           {
@@ -132,11 +140,13 @@ UserSchema.statics.getUsers = async () => {
   return await User.find({})
 }
 
-UserSchema.statics.findById = async (id: any) => {
+ UserSchema.statics.findById = async (id: any) => {
   const user = await User.findOne({ _id: id });
 
   return user ? user : null;
 }
+
+
 
 const User: Model<IUserDoc> = mongoose.model<IUserDoc>('User', UserSchema);
 

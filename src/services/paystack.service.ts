@@ -29,7 +29,9 @@ class PaystackService {
         {
           amount: data.amount * 100,
           email: data.email,
-          reference: data.reference
+          reference: data.reference,
+          callback_url: "https://8666-2c0f-2a80-1c-3510-ddd-ef09-16c1-b00b.ngrok-free.app/thanks"
+
         },
         {
           headers: {

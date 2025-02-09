@@ -13,6 +13,8 @@ class CheckoutController {
 
   initiatePayment = asyncHandler(async (req: Request, res: Response) => {
     const { userId } = req.params;
+    // const { userId } = req.body;
+
   
     // Calculate totals and fetch cart details
     const { subtotal } = await cartService.calculateTotals(userId);

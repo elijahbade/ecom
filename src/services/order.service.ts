@@ -52,11 +52,17 @@ class OrderService {
     return order;
   }
 
-  async getOrderHistory(userId: string): Promise<IOrder[]> {
-    return Order.find({ userId }).sort({ createdAt: -1 });
+  async getAllOrders(): Promise<IOrder[]> {
+    return Order.find().sort({ createdAt: -1 });
+   
   }
 
-  async getOrderById(orderId: string): Promise<IOrder | null> {
+  async getUserOrders({userId}:{userId: string}): Promise<IOrder[]> {
+     
+    return await Order.find({userId}).sort({ createdAt: -1 });
+  }
+  
+async getOrderById({ orderId }: { orderId: string; }): Promise<IOrder | null> {
     return Order.findById(orderId);
   }
 
@@ -75,13 +81,14 @@ class OrderService {
   async updateOrderStatus(
     orderId: string, 
     status: IOrder['orderStatus']
-  ): Promise<IOrder | null> {
+): Promise<IOrder | null> {
     return Order.findByIdAndUpdate(
-      orderId,
-      { orderStatus: status },
-      { new: true }
+        orderId,
+        { orderStatus: status },
+        { new: true }
     );
-  }
+}
+
 
 
 }

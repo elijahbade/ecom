@@ -2,7 +2,10 @@ import { ObjectId } from "mongoose"
 
 export interface RegisterDTO{
   email: string,
-  password: string
+  password: string,
+  username: string,
+  firstName: string,
+  avatar: string
 }
 
 export interface MappedRegisteredUserDTO{

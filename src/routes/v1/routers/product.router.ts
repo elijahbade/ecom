@@ -8,19 +8,22 @@ import getProductsByCategory from '../../../controllers/product/geProductBycateg
 import { getProductById } from '../../../controllers/product/getProductById.controllers';
 import { searchProducts } from '../../../controllers/product/searchProduct.controllers';
 import { filterByCategories } from '../../../controllers/product/filterByCategories.controllers';
+import {protect} from '../../../middleware/auth.mw';
+import { deleteProduct } from '../../../controllers/product/detletePrdouct';
 
 
 const router = express.Router({ mergeParams: true });
 
 
-router.post('/upload-product', uploadProduct)
-router.get('/get-product', vcd, getProducts)
-router.patch('/update-product',updateProduct)
+router.post('/upload-product', protect, uploadProduct)
+router.get('/get-product',  getProducts)
+router.patch('/update-product', protect, updateProduct)
 router.get('/get-categoryProduct', getCategoryProduct)
 router.get('/category-product', getProductsByCategory)
 router.get('/product-details/:productId', getProductById)
 router.get('/search', searchProducts )
 router.get("/filter-product", filterByCategories)
+router.delete('/delete-product/:productId', protect, deleteProduct)
 
 
 

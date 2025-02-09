@@ -30,6 +30,7 @@ export interface IUserDoc extends Document {
     lastName: string,
     phoneNumber: string,
     phoneCode: string,
+    userType: string,
 
     roles: Array<ObjectId | any>
 
