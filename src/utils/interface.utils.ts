@@ -31,6 +31,9 @@ export interface IUserDoc extends Document {
     phoneNumber: string,
     phoneCode: string,
     userType: string,
+    
+   
+googleId: string,
 
     roles: Array<ObjectId | any>
 
@@ -38,6 +41,11 @@ export interface IUserDoc extends Document {
     updateAt: string,
     _id: ObjectId,
     id: ObjectId,
+    
+    //
+    emailVerificationToken?: String,
+    emailVerificationExpires?: Date,
+    isEmailVerified?: Boolean,
     
     verificationToken?: string;
     resetPasswordToken?: string;

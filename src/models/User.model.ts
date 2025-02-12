@@ -56,10 +56,16 @@ const UserSchema = new Schema(
           default: '+234'
       },
       
-      isVerified: { type: Boolean, default: false },
-      verification: { type: String },
-      resetPassword: { type: String },
-      resetPasswordExpires: { type: Date },
+emailVerificationToken: {String},
+emailVerificationExpires: {Date},
+isEmailVerified: { type: Boolean, default: false },
+resetPasswordToken: {type: String},
+googleId: {type: String},
+isVerified: { type: Boolean, default: false },
+verification: { type: String },
+resetPassword: { type: String },
+resetPasswordExpires: { type: Date },
+
       
     
       roles: [

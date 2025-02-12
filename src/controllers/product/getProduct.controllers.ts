@@ -12,3 +12,23 @@ export const getProducts = asyncHandler(async (req: Request, res: Response): Pro
     data: allProducts,
   });
 });
+
+
+
+/**
+ * Get latest product prices.
+ * @route GET /api/products/latest-prices
+ */
+export const getLatestPrices = asyncHandler(async (req: Request, res: Response): Promise<Response> => {
+  // Fetch only required fields to optimize performance
+  const latestPrices = await ProductModel.find()
+    .select("name price updatedAt") // Fetch only necessary fields
+    .sort({ updatedAt: -1 });
+
+  return res.json({
+    message: "Latest Product Prices",
+    success: true,
+    error: false,
+    data: latestPrices,
+  });
+});

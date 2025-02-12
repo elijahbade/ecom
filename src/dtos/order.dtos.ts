@@ -1,4 +1,5 @@
 export interface ShippingInfoDTO {
+    email: string;
     fullName: string;
     address: string;
     city: string;

@@ -5,6 +5,8 @@ import { LoginDTO } from "../dtos/auth.dtos";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import User from "../models/User.model";
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 
 
@@ -49,7 +51,193 @@ class AuthService {
             return result
     } 
 
+    // public async sendVerificationEmail(user: IUserDoc): Promise<void> {
+    //     const verificationToken = crypto.randomBytes(32).toString('hex');
+        
+    //     // Save verification token to user
+    //     user.emailVerificationToken = verificationToken;
+    //     user.emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+    //     await user.save();
+    
+    //     const transporter = nodemailer.createTransport({
+    //       // Configure your email provider here
+    //       service: 'gmail',
+    //       auth: {
+    //         user: process.env.EMAIL_USERNAME,
+    //         pass: process.env.EMAIL_PASSWORD
+    //       }
+    //     });
+    
+    //     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+    
+    //     await transporter.sendMail({
+    //       to: user.email,
+    //       subject: 'Verify your email',
+    //       html: `Please click this link to verify your email: <a href="${verificationUrl}">${verificationUrl}</a>`
+    //     });
+    //   }
+    
+    //   public async verifyEmail(token: string): Promise<IResult> {
+    //     const user = await User.findOne({
+    //       emailVerificationToken: token,
+    //       emailVerificationExpires: { $gt: Date.now() }
+    //     });
+    
+    //     if (!user) {
+    //       return {
+    //         error: true,
+    //         message: "Invalid or expired verification token",
+    //         code: 400,
+    //         data: {}
+    //       };
+    //     }
+    
+    //     user.isEmailVerified = true;
+    //     user.emailVerificationToken = undefined;
+    //     user.emailVerificationExpires = undefined;
+    //     await user.save();
+    
+    //     return {
+    //       error: false,
+    //       message: "Email verified successfully",
+    //       code: 200,
+    //       data: {}
+    //     };
+    //   }
+    
+    //   // 2. Forgot Password functionality
+    //   public async forgotPassword(email: string): Promise<IResult> {
+    //     const user = await User.findOne({ email });
+        
+    //     if (!user) {
+    //       return {
+    //         error: true,
+    //         message: "User not found",
+    //         code: 404,
+    //         data: {}
+    //       };
+    //     }
+    
+    //     const resetToken = crypto.randomBytes(32).toString('hex');
+    //     user.resetPasswordToken = resetToken;
+    //     user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    //     await user.save();
+    
+    //     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+    
+    //     try {
+    //       const transporter = nodemailer.createTransport({
+    //         // Same email configuration as above
+    //         service: 'gmail',
+    //         auth: {
+    //           user: process.env.EMAIL_USERNAME,
+    //           pass: process.env.EMAIL_PASSWORD
+    //         }
+    //       });
+    
+    //       await transporter.sendMail({
+    //         to: user.email,
+    //         subject: 'Password Reset Request',
+    //         html: `Please click this link to reset your password: <a href="${resetUrl}">${resetUrl}</a>`
+    //       });
+    
+    //       return {
+    //         error: false,
+    //         message: "Password reset email sent",
+    //         code: 200,
+    //         data: {}
+    //       };
+    //     } catch (error) {
+    //       user.resetPasswordToken = undefined;
+    //       user.resetPasswordExpires = undefined;
+    //       await user.save();
+    
+    //       return {
+    //         error: true,
+    //         message: "Email could not be sent",
+    //         code: 500,
+    //         data: {}
+    //       };
+    //     }
+    //   }
+    
+    //   public async resetPassword(token: string, newPassword: string): Promise<IResult> {
+    //     const user = await User.findOne({
+    //       resetPasswordToken: token,
+    //       resetPasswordExpires: { $gt: Date.now() }
+    //     });
+    
+    //     if (!user) {
+    //       return {
+    //         error: true,
+    //         message: "Invalid or expired reset token",
+    //         code: 400,
+    //         data: {}
+    //       };
+    //     }
+    
+    //     user.password = newPassword;
+    //     user.resetPasswordToken = undefined;
+    //     user.resetPasswordExpires = undefined;
+    //     await user.save();
+    
+    //     return {
+    //       error: false,
+    //       message: "Password reset successful",
+    //       code: 200,
+    //       data: {}
+    //     };
+    //   }
+    
+    //   // 3. Google Sign-in
+    //   public async googleSignIn(googleToken: string): Promise<IResult> {
+    //     try {
+    //       const ticket = await client.verifyIdToken({
+    //         idToken: googleToken,
+    //         audience: process.env.GOOGLE_CLIENT_ID
+    //       });
+          
+    //       const payload = ticket.getPayload();
+    //       if (!payload) {
+    //         return {
+    //           error: true,
+    //           message: "Invalid Google token",
+    //           code: 400,
+    //           data: {}
+    //         };
+    //       }
+    
+    //       let user = await User.findOne({ email: payload.email });
+    
+    //       if (!user) {
+    //         // Create new user if doesn't exist
+    //         user = await UserService.createUser({
+    //           email: payload.email!,
+    //           firstName: payload.given_name!,
+    //           lastName: payload.family_name!,
+    //           isEmailVerified: true,
+    //           googleId: payload.sub,
+    //           userType: UserType.BUSINESS
+    //         });
+    //       }
+    
+    //       const token = await user.getAuthToken();
+    
+    //       return {
+    //         error: false,
+    //         message: "Google sign-in successful",
+    //         code: 200,
+    //         data: { user, token }
+    //       };
+    //     } catch (error) {
+    //       return {
+    //         error: true,
+    //         message: "Google authentication failed",
+    //         code: 400,
+    //         data: {}
+    //       };
+    //     }
+    //   }
+    }
 
-
-}
 export default new AuthService()

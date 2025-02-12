@@ -7,6 +7,7 @@ export interface IOrderItem {
   name: string;
   quantity: number;
   price: number;
+  
 }
 
 export interface IOrder extends Document {

@@ -3,6 +3,9 @@ import { Order, IOrder } from '../models/order.model';
 import { ShippingInfoDTO, PaymentInitiateDTO } from '../dtos/order.dtos';
 import { paystackService } from './paystack.service';
 import { cartService } from './cart.service';
+import { CartVerificationResult, ClientCartItem, IOrderItem, PriceUpdate } from '../types/cart';
+import ProductModel from '../models/product/product.model';
+import { Types } from 'mongoose';
 
 class OrderService {
   async saveShippingInfo(userId: string, shippingInfo: ShippingInfoDTO): Promise<void> {
@@ -88,9 +91,68 @@ async getOrderById({ orderId }: { orderId: string; }): Promise<IOrder | null> {
         { new: true }
     );
 }
+  async verifyCartPrices(clientCartItems: ClientCartItem[]): Promise<CartVerificationResult> {
+    const verifiedItems: IOrderItem[] = [];
+    let total = 0;
+    let isValid = true;
+    const updatedItems: PriceUpdate[] = [];
 
+    // Fetch current prices from database for all items
+    const itemIds = clientCartItems.map(item => new Types.ObjectId(item.id));
+    const dbItems = await ProductModel.find({ _id: { $in: itemIds } })
+      .select('_id name price')
+      .lean();
 
+    // Create a map for quick price lookup
+    const dbPriceMap = new Map(
+      dbItems.map(item => [item._id.toString(), { price: item.price, name: item.name }])
+    );
+
+    // Verify each item
+    for (const clientItem of clientCartItems) {
+      const dbItemData = dbPriceMap.get(clientItem.id);
+      
+      if (!dbItemData) {
+        isValid = false;
+        continue;
+      }
+
+      const { price: dbPrice, name } = dbItemData;
+      
+      // Check if price matches
+      if (dbPrice !== clientItem.price) {
+        isValid = false;
+        updatedItems.push({
+          id: clientItem.id,
+          name,
+          oldPrice: clientItem.price,
+          newPrice: dbPrice,
+          quantity: clientItem.quantity
+        });
+      }
+
+      // Add to verified items with correct price and ObjectId
+      verifiedItems.push({
+        productId: new Types.ObjectId(clientItem.id),
+        name: name,
+        price: dbPrice,
+        quantity: clientItem.quantity
+      });
+
+      total += dbPrice * clientItem.quantity;
+    }
+
+    return {
+      isValid,
+      total,
+      verifiedItems,
+      updatedItems: updatedItems.length > 0 ? updatedItems : null
+    };
+  }
 
 }
+
+
+
 
 export const orderService = new OrderService();

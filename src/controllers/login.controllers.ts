@@ -57,3 +57,11 @@ export const checkUser = asyncHandler (async (req: Request, res: Response, next:
     userType: req.user.userType, 
   });
 });
+
+export const logout = (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Logout successful',
+    token: null, // Invalidate token (Client should remove it from storage)
+  });
+};
