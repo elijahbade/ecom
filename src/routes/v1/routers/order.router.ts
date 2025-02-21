@@ -6,7 +6,8 @@ const router = express.Router();
 
 router.get('/history', protect, rbac("admin"), orderController.getAllOrders);
 router.get('/history/:userId',  orderController.getUserOrders);
-router.get('/track/:OrderId', protect, rbac("admin"), orderController.getOrderById);
+router.get('/track/:_id', protect, rbac("admin"), orderController.getOrderById);
+
 router.patch('/order-status', protect, rbac("admin"), orderController.updateOrderStatus);
 router.patch('/payment-status', protect,  rbac("admin"), orderController.updateOrderPaymentStatus);
 

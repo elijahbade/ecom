@@ -33,7 +33,7 @@ export interface IUserDoc extends Document {
     userType: string,
     
    
-googleId: string,
+    googleId: string,
 
     roles: Array<ObjectId | any>
 

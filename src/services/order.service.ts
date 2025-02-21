@@ -23,7 +23,7 @@ class OrderService {
 
     const paymentData: PaymentInitiateDTO = {
       amount: subtotal,
-      email: 'user@example.com', // Get from user session/profile
+      email: 'user@example.com', 
       reference: `ORDER_${Date.now()}_${userId}`
     };
 
@@ -65,8 +65,8 @@ class OrderService {
     return await Order.find({userId}).sort({ createdAt: -1 });
   }
   
-async getOrderById({ orderId }: { orderId: string; }): Promise<IOrder | null> {
-    return Order.findById(orderId);
+async getOrderById({ _id }: { _id: string; }): Promise<IOrder | null> {
+    return await Order.findById(_id);
   }
 
   async updateOrderPaymentStatus(

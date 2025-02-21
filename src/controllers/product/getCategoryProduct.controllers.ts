@@ -38,3 +38,6 @@ const getCategoryProduct = asyncHandler (async (req: Request, res: Response): Pr
 });
 
 export default getCategoryProduct;
+
+
+

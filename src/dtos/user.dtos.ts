@@ -7,5 +7,7 @@ export interface CreateUserDTO{
     phoneNumber?: string,
     email: string,
     password: string,
+    googleId?: string,
     avatar: string;
+    isEmailVerified?: boolean;
 }

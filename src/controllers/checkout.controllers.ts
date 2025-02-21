@@ -194,7 +194,7 @@ class CheckoutController {
         });
       }
 
-      const amountInKobo = verifiedCartData.total * 100;
+      const amountInKobo = verifiedCartData.total;
       const paymentReference = `ORDER_${Date.now()}_${userId}`;
 
       // Create order with both verified items and shipping info

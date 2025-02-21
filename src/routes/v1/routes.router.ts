@@ -18,7 +18,7 @@ router.use('/cart',  cartRoutes)
 router.use('/order',  orderRoutes)
 router.use('/checkout',  checkoutRoutes)
 router.use('/', webhookRoute);
-router.use('/admin', protect,  rbac("admin"), adminRoutes)
+router.use('/admin', adminRoutes)
 
 
 router.get('/', (req: Request, res: Response, next: NextFunction) =>{

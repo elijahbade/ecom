@@ -17,8 +17,8 @@ class OrderController {
 
 
   getOrderById = asyncHandler(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const order = await orderService.getOrderById({ orderId: id });
+    const { _id } = req.params;
+    const order = await orderService.getOrderById({ _id });
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
