@@ -1,7 +1,8 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction} from 'express';
 import asyncHandler from '../middleware/aysnc.mw';
 import { orderService } from '../services/order.service';
 import { IOrder, Order } from '../models/order.model';
+import ErrorResponse from '../utils/error.utils';
 
 class OrderController {
   getAllOrders  = asyncHandler(async (req: Request, res: Response) => {
@@ -16,18 +17,18 @@ class OrderController {
   })
 
 
-  getOrderById = asyncHandler(async (req: Request, res: Response) => {
+  getOrderById = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { _id } = req.params;
     const order = await orderService.getOrderById({ _id });
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return next(new ErrorResponse('Error', 400, ["Order not found"]))
     }
     res.status(200).json(order);
   });
 
 
    updateOrderPaymentStatus = asyncHandler(
-    async (req: Request, res: Response): Promise<Response> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       const { reference, status }: { reference: string; status: IOrder['paymentStatus'] } = req.body;
   
       const updatedOrder = await Order.findOneAndUpdate(
@@ -37,7 +38,8 @@ class OrderController {
       );
   
       if (!updatedOrder) {
-        return res.status(404).json({ message: "Order not found" });
+       return next(new ErrorResponse('Error', 404, ["Order  Not Found"]))
+        
 
       }
 
@@ -47,14 +49,14 @@ class OrderController {
   
 
 
-  updateOrderStatus = asyncHandler(async (req: Request, res: Response) => {
+  updateOrderStatus = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { orderId, status } = req.body;
     const order = await orderService.updateOrderStatus(orderId, status);
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
       
     }
-    return res.status(200).json({status: 200, message: "Order status updated", order})
+    return next(new ErrorResponse('Error', 404, ["Order  Not Found"]))
 
   });
 }

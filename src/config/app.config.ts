@@ -17,6 +17,7 @@ import v1Routes from '../routes/v1/routes.router'
 import { limitRequests } from "../middleware/ratelimit";
 import 'reflect-metadata'; 
 import dotenv from 'dotenv';
+import ErrorResponse from "../utils/error.utils";
 
 
 
@@ -98,7 +99,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) =>{
     environment = ENVType.DEVELOPMENT;
    }
 
-//    return next(new ErrorResponse('Error',400, ['cannot get API health'], {name: 'URL Shortner'}))
+   return next(new ErrorResponse('Error',400, ['cannot get API health'], {name: 'URL Shortner'}))
     
     res.status(200).json({
         error: false,
